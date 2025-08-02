@@ -100,6 +100,30 @@
         }
 
 
+        public class CreateTextErrorMessages
+        {
+            public const string ErrorAddressesProperty = "The addresses property for creating a new text is empty. Please provide one or more addresses.";
+
+            public const string ErrorMessageProperty = "The message property for creating a new text is empty. Please provide a message.";
+        }
+
+
+        public class UpdateTextErrorMessages
+        {
+            public const string ErrorAddressesProperty = "The addresses property for creating a new text is empty. Please provide a addresses(es).";
+
+            public const string ErrorMessageProperty = "The message property for creating a new text is empty. Please provide a message.";
+
+            public const string ErrorIdenProperty = "The iden property for updating the text is empty. Please provide a valid iden.";
+        }
+
+
+        public class DeleteTextErrorMessages
+        {
+            public const string ErrorIdenProperty = "The text iden property for deleting the text is empty. Please provide a valid text iden.";
+        }
+
+
         public class OAuthErrorMessages
         {
             public const string WebExceptionFormat = "Status code: {0} while trying to request an OAuth token. {1}";
@@ -161,6 +185,12 @@
         public class ContactsUrls
         {
             public const string Contacts = "contacts";
+        }
+
+
+        public class TextsUrls
+        {
+            public const string Texts = "texts";
         }
 
 

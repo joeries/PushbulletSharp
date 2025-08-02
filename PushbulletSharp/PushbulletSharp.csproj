@@ -11,9 +11,18 @@
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks>netstandard2.0;net8.0</TargetFrameworks>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <FileVersion>3.1.2</FileVersion>
+    <AssemblyVersion>3.1.2</AssemblyVersion>
+    <RepositoryUrl>https://github.com/joeries/PushbulletSharp.git</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/joeries/PushbulletSharp.git</PackageProjectUrl>
+    <PackageId>Joeries.$(AssemblyName)</PackageId>
+    <Title>$(AssemblyName)</Title>
+    <Description>1. Add .NET 8.0 support; 2. Add Text Apis; 3. Add SmsChangedEphemeral.</Description>
+    <Copyright></Copyright>
+    <Version>3.1.2</Version>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

@@ -3,7 +3,7 @@
 namespace PushbulletSharp.Models.Responses.Ephemerals
 {
     [DataContract]
-    public class SMSEphemeral : IEphemeral
+    public class SmsEphemeral : IEphemeral
     {
         /// <summary>
         /// Gets or sets the type.

@@ -31,7 +31,7 @@ namespace PushbulletSharp.WebSocketConsole
                             Console.WriteLine(string.Format("Tickle recieved on {0}. Go check it out.", DateTime.Now));
                             PushResponseFilter filter = new PushResponseFilter()
                             {
-                                Active = true,
+                                Active = false,
                                 ModifiedDate = lastChecked
                             };
 

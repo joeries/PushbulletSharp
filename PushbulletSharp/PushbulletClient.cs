@@ -14,6 +14,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace PushbulletSharp
 {
@@ -315,6 +316,141 @@ namespace PushbulletSharp
         }
 
         #endregion Chats
+
+        #region Texts
+
+        /// <summary>
+        /// Creates the text.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        /// <exception cref="System.ArgumentException">create text request</exception>
+        public PushbulletSharp.Models.Responses.Text CreateText(CreateTextRequest request)
+        {
+            try
+            {
+                #region pre-processing
+
+                if (request == null)
+                {
+                    throw new ArgumentException("create text request");
+                }
+
+                if (null == request.Data?.Addresses || request.Data?.Addresses.Count == 0)
+                {
+                    throw new Exception(PushbulletConstants.CreateTextErrorMessages.ErrorAddressesProperty);
+                }
+
+                if (string.IsNullOrWhiteSpace(request.Data?.Message))
+                {
+                    throw new Exception(PushbulletConstants.CreateTextErrorMessages.ErrorMessageProperty);
+                }
+
+                #endregion pre-processing
+
+                #region processing
+
+                BasicText basicResponse = PostRequest<BasicText>(string.Concat(PushbulletConstants.BaseUrl, PushbulletConstants.TextsUrls.Texts), request);
+                PushbulletSharp.Models.Responses.Text response = ConvertBasicText(basicResponse);
+                return response;
+
+                #endregion processing
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+
+        /// <summary>
+        /// Updates the text.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        /// <exception cref="System.ArgumentException">update text request</exception>
+        /// <exception cref="System.Exception"></exception>
+        public PushbulletSharp.Models.Responses.Text UpdateText(UpdateTextRequest request)
+        {
+            try
+            {
+                #region pre-processing
+
+                if (request == null)
+                {
+                    throw new ArgumentException("update text request");
+                }
+
+                if (string.IsNullOrWhiteSpace(request.Iden))
+                {
+                    throw new Exception(PushbulletConstants.UpdateTextErrorMessages.ErrorIdenProperty);
+                }
+
+                if (null == request.Data?.Addresses || request.Data?.Addresses.Count == 0)
+                {
+                    throw new Exception(PushbulletConstants.UpdateTextErrorMessages.ErrorAddressesProperty);
+                }
+
+                if (string.IsNullOrWhiteSpace(request.Data?.Message))
+                {
+                    throw new Exception(PushbulletConstants.UpdateTextErrorMessages.ErrorMessageProperty);
+                }
+
+                #endregion pre-processing
+
+                #region processing
+
+                BasicText basicResponse = PostRequest<BasicText>(string.Format("{0}{1}/{2}", PushbulletConstants.BaseUrl, PushbulletConstants.TextsUrls.Texts, request.Iden), request);
+                PushbulletSharp.Models.Responses.Text response = ConvertBasicText(basicResponse);
+                return response;
+
+                #endregion processing
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+
+        /// <summary>
+        /// Deletes the text.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <exception cref="System.ArgumentException">delete text request</exception>
+        /// <exception cref="System.Exception"></exception>
+        public void DeleteText(DeleteTextRequest request)
+        {
+            try
+            {
+                #region pre-processing
+
+                if (request == null)
+                {
+                    throw new ArgumentException("delete text request");
+                }
+
+                if (string.IsNullOrWhiteSpace(request.Iden))
+                {
+                    throw new Exception(PushbulletConstants.DeleteTextErrorMessages.ErrorIdenProperty);
+                }
+
+                #endregion pre-processing
+
+
+                #region processing
+
+                string jsonResult = DeleteRequest(string.Format("{0}{1}/{2}", PushbulletConstants.BaseUrl, PushbulletConstants.TextsUrls.Texts, request.Iden));
+
+                #endregion processing
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        #endregion Texts
 
 
         #region Contacts Methods
@@ -1438,6 +1574,25 @@ namespace PushbulletSharp
             chat.With = basicChat.With;
 
             return chat;
+        }
+
+        private PushbulletSharp.Models.Responses.Text ConvertBasicText(BasicText basicText)
+        {
+            PushbulletSharp.Models.Responses.Text text = new PushbulletSharp.Models.Responses.Text();
+            text.Active = basicText.Active;
+            if (basicText.Created != null)
+            {
+                text.Created = TimeZoneInfo.ConvertTime(basicText.Created.UnixTimeToDateTime(), TimeZoneInfo);
+            }
+            if (basicText.Modified != null)
+            {
+                text.Modified = TimeZoneInfo.ConvertTime(basicText.Modified.UnixTimeToDateTime(), TimeZoneInfo);
+            }
+            text.FileUrl = basicText.FileUrl;
+            text.Iden = basicText.Iden;
+            text.Data = basicText.Data;
+
+            return text;
         }
 
 
